@@ -9,8 +9,8 @@ src="https://c7.hotpng.com/preview/180/365/308/jenkins-devops-continuous-integra
 height=48 width=48 alt="Jenkins Logo" />
 
 1. На хосте должны быть установлены [Vagrant](https://www.vagrantup.com/downloads.html) и [VirtualBOX](https://www.virtualbox.org/wiki/Downloads) c Oracle VM VirtualBox Extension Pack.
-2. Для запуска проекта, нужно создать папку ***.sshkey*** по пути  ./files и в неё сгенерировать пару SSH ключей с именами ***appuser.pem*** и ***appuser.pub***.
-3. После клонирования репозитория, перейти в него и запустить проект:
+2. После клонирования репозитория, перейти в него и запустить проект:
+PS. Для запуска проекта, нужно создать папку ***.sshkey*** по пути  ./files и в неё сгенерировать пару SSH ключей с именами ***appuser.pem*** и ***appuser.pub***.
 ```
 git clone https://github.com/Dethroner/test-jw.git
 cd test-jw
