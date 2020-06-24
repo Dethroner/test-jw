@@ -10,7 +10,7 @@ height=48 width=48 alt="Jenkins Logo" />
 
 1. На хосте должны быть установлены [Vagrant](https://www.vagrantup.com/downloads.html) и [VirtualBOX](https://www.virtualbox.org/wiki/Downloads) c Oracle VM VirtualBox Extension Pack.<br>
 2. После клонирования репозитория, перейти в него и запустить проект:<br>
-PS. Для запуска проекта, нужно создать папку ***.sshkey*** по пути  ./files и в неё сгенерировать пару SSH ключей с именами ***appuser.pem*** и ***appuser.pub***.
+PS. Для запуска проекта, нужно создать папку ***.sshkey*** по пути  ./files и в неё скопировать/сгенерировать пару SSH ключей с именами ***appuser.pem*** и ***appuser.pub***.
 ```
 git clone https://github.com/Dethroner/test-jw.git
 cd test-jw
