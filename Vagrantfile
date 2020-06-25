@@ -41,26 +41,35 @@ Vagrant.configure("2") do |config|
         master.vm.provision :reload
     end
 
-	config.vm.define "jenkins" do |node|
-		node.vm.provider "virtualbox" do |v|
-			v.name = "jenkins"
-			v.memory = 2048
-			v.cpus = 2
-		end
-		node.vm.box = "generic/debian10"
-		node.vm.network "private_network", ip: "10.50.10.10", gateway: "10.50.10.1", dns: "10.50.10.100"
-		node.vm.hostname = "jenkins"
-		node.vm.synced_folder ".", "/vagrant", type: "virtualbox"
-		node.vm.provision :shell, path: "./files/user.sh", args: "appuser"
-		node.vm.provision :shell, privileged: true, path: "./files/vm-route.sh"
-		node.vm.provision :shell, path: "./files/install.sh"
-		node.vm.provision :shell, privileged: true, inline: <<-SHELL
-				mkdir -p /var/lib/jenkins/init.groovy.d
-				cp /vagrant/files/conf/* /var/lib/jenkins/init.groovy.d/
-				chown jenkins:jenkins -R /var/lib/jenkins/init.groovy.d
-				service jenkins force-reload				
-		SHELL
-		node.vm.provision :shell, privileged: true, path: "./files/post-install.sh"
-	end
+    config.vm.define "jenkins" do |node|
+        node.vm.provider "virtualbox" do |v|
+            v.name = "jenkins"
+            v.memory = 2048
+            v.cpus = 2
+        end
+        node.vm.box = "generic/debian10"
+        node.vm.network "private_network", ip: "10.50.10.10", gateway: "10.50.10.1", dns: "10.50.10.100"
+        node.vm.hostname = "jenkins"
+        node.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+        node.vm.provision :shell, path: "./files/user.sh", args: "appuser"
+        node.vm.provision :shell, privileged: true, path: "./files/vm-route.sh"
+        node.vm.provision :shell, path: "./files/install.sh"
+        node.vm.provision "1", preserve_order: true, type: "shell", privileged: true, inline: <<-SHELL
+            mkdir -p /var/lib/jenkins/init.groovy.d
+            cp /vagrant/files/conf/init/* /var/lib/jenkins/init.groovy.d/
+            chown jenkins:jenkins -R /var/lib/jenkins/init.groovy.d
+            service jenkins force-reload
+        SHELL
+        node.vm.provision "2", preserve_order: true, type: "shell", privileged: true, inline: <<-SHELL
+            sleep 5m
+            cp /vagrant/files/conf/*.groovy /var/lib/jenkins/init.groovy.d/
+            chown jenkins:jenkins -R /var/lib/jenkins/init.groovy.d
+            chmod +x /opt/jenkins-cli.jar
+            java -jar /opt/jenkins-cli.jar -s http://localhost:8080/ -auth admin:123 groovy = < /var/lib/jenkins/init.groovy.d/ad.groovy
+
+            service jenkins force-reload
+        SHELL
+        node.vm.provision :shell, privileged: true, path: "./files/post-install.sh"
+    end
 
 end

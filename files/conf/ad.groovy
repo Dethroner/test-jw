@@ -1,3 +1,5 @@
+import jenkins.model.Jenkins
+
 import hudson.plugins.active_directory.ActiveDirectoryDomain
 import hudson.plugins.active_directory.ActiveDirectorySecurityRealm
 import hudson.plugins.active_directory.GroupLookupStrategy
