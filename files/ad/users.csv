@@ -1,0 +1,3 @@
+Username; Fullname; Description; Groups; Password
+jenkins;jenkins.administrator;Jenkins administrator;Full access Jenkins,Administrators;P@ssw0rd
+root;root;Administrator;Administrators;q1w2e3QWE

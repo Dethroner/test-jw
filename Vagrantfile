@@ -39,6 +39,8 @@ Vagrant.configure("2") do |config|
         master.vm.provision "shell", path: "files/pre-install.ps1", privileged: true, args: $adminpass
         master.vm.provision "shell", path: "files/bootstrap.ps1", privileged: true, args: [$adminpass, $FQDN, $NetBIOS]
         master.vm.provision :reload
+        master.vm.provision "shell", path: "files/start.ps1", privileged: true
+
     end
 
     config.vm.define "jenkins" do |node|

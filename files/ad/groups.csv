@@ -1,0 +1,2 @@
+Group,GroupType,GroupCategory,GroupLocation
+"Full access Jenkins",Universal,Security,"CN=Builtin,DC=test,DC=lan"
